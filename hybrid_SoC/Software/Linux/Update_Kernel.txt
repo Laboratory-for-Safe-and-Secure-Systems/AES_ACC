@@ -1,0 +1,38 @@
+lsblk
+
+sudo chmod +x MACsec_enable.sh
+sudo ./MACsec.sh
+
+
+sudo cp run/media/sda1/macsec.ko home/petalinux/
+sudo cp run/media/sda1/hwacc.ko home/petalinux/
+
+
+cat /proc/interrupts
+
+
+//size of ping (-s 500 -> 500 byte)
+ping -s 500 10.10.1.3
+ping -s 500 -c 10 10.10.1.3 > ping_results.txt
+
+
+ifconfig
+
+sudo rmmod macsec
+
+sudo insmod macsec.ko
+
+
+petalinux-build -x mrproper -f
+petalinux-config --get-hw-description=ZCU106_AES_IO_3.xsa --silentconfig
+petalinux-devtool modify linux-xlnx
+
+
+sudo rm -rf rootfs/*
+
+
+petalinux-package --boot --fsbl images/linux/zynqmp_fsbl.elf --fpga images/linux/system.bit --pmufw images/linux/pmufw.elf --u-boot
+
+sudo cp ~/01_MAPR/Xilinx/04_Petalinux/ZCU106_AES_IO/images/linux/rootfs.tar.gz /media/lintl/rootfs/
+sudo tar -xvzf ~/01_MAPR/Xilinx/04_Petalinux/ZCU106_AES_IO/images/linux/rootfs.tar.gz -C /media/lintl/rootfs/
+

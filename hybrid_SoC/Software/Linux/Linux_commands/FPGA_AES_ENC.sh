@@ -1,0 +1,69 @@
+# This script needs to be executed with privileged rights!
+
+#key 1
+sudo devmem 0xa0000010 64 0x1111111111111111
+sudo devmem 0xa0000018 64 0x1111111111111111 
+
+#key 2
+sudo devmem 0xa0000020 64 0x1111111111111111
+sudo devmem 0xa0000028 64 0x1111111111111111 
+
+
+#IV: 1234567890ABCDEF12345678 & assoclen & datasize: 0010 0020
+sudo devmem 0xa0000030 64 0x0100a8488b508696
+sudo devmem 0xa0000038 64 0x001c005e6d000000
+
+#AAD1
+sudo devmem 0xa0000040 64 0x8696160000003333
+sudo devmem 0xa0000048 64 0x002ce588a8488b50 
+
+#AAD2
+sudo devmem 0xa0000050 64 0x8b5086966d000000
+sudo devmem 0xa0000058 64 0x000000000100a848 
+
+
+#userdata
+
+sudo devmem 0xa0000100 64 0x240000000060dd86
+sudo devmem 0xa0000108 64 0x0000000000000100
+
+sudo devmem 0xa0000110 64 0x0000000000000000
+sudo devmem 0xa0000118 64 0x0000000002ff0000
+
+sudo devmem 0xa0000120 64 0x0000000000000000
+sudo devmem 0xa0000128 64 0x00000205003a1600
+
+sudo devmem 0xa0000130 64 0x00005726008f0001
+sudo devmem 0xa0000138 64 0x02ff000000040100
+
+sudo devmem 0xa0000140 64 0x0000000000000000
+sudo devmem 0xa0000148 64 0x0000a8488bff0100
+
+sudo devmem 0xa0000150 64 0x0000000000000000
+sudo devmem 0xa0000158 64 0x0000a8488bff0100
+
+
+# ready flag
+sudo devmem 0xA0020008 8 0x1
+
+sudo devmem 0xA0020008 8 0x0
+
+sudo devmem 0xa0000130 128
+
+
+
+0000   33 33 00 00 00 16 96 86 50 8b 48 a8 88 e5 2c 00
+0010   00 00 00 6d 96 86 50 8b 48 a8 00 01 
+
+                                                8c 21 6e a9
+0020   b5 c8 9f c4 36 f0 23 64 b6 50 64 d9      03 52 f9 31
+0030   38 5a 22 bb 19 b5 36 5d fb 21 9c ad      b0 6b 48 8e
+0040   78 75 5b f6 d1 a6 92 6c bb 14 06 a7      9e 73 0f ed
+0050   fa 21 0c cd 33 0a ca f9 03 71 22 24      bc e5 c4 7e
+0060   ee 3b a4 70 78 b6 9b 5e 23 c5 
+
+                                     82 73 d9 52 84 f9
+0070   64 60 05 2e 72 76 94 37 00 27
+
+
+

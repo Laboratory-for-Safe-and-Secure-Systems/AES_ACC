@@ -1,0 +1,76 @@
+# This script needs to be executed with privileged rights!
+
+#key 1              init_rx_key_FPGA(), init_tx_key_FPGA()
+sudo devmem 0xa0008010 64 0x1111111111111111
+sudo devmem 0xa0008018 64 0x1111111111111111 
+
+#key 2
+sudo devmem 0xa0008020 64 0x1111111111111111
+sudo devmem 0xa0008028 64 0x1111111111111111 
+
+#IV & Size          init_iv_FPGA()
+sudo devmem 0xa0008030 64 0x01000cf11f8880e8
+sudo devmem 0xa0008038 64 0x001c005b97000000
+
+
+
+#AAD 1
+sudo devmem 0xa0008040 64 0x80e8fb00005e0001
+sudo devmem 0xa0008048 64 0x2ce5880cf11f88 
+
+#AAD 2
+sudo devmem 0xa0008050 64 0x1f8880e897000000
+sudo devmem 0xa0008058 64 0x1000cf1 
+
+
+
+#userdata
+sudo devmem 0xa0008100 64 0x2061c5824d9de74d
+sudo devmem 0xa0008108 64 0x904ba46f070ae416
+
+sudo devmem 0xa0008110 64 0x93f94683c41d31dd
+sudo devmem 0xa0008118 64 0x70c3276db2db937c
+
+sudo devmem 0xa0008120 64 0x6339ef67998b18
+sudo devmem 0xa0008128 64 0x94e464117f0fcae5
+                                   
+sudo devmem 0xa0008130 64 0xc75d36fa08693867
+sudo devmem 0xa0008138 64 0xd341713d1bf6b1c
+
+sudo devmem 0xa0008140 64 0xa31eceab71c66189
+sudo devmem 0xa0008148 64 0x2acb4b
+
+sudo devmem 0xa0008150 64 0x62717168d96890ef
+sudo devmem 0xa0008158 64 0xffffdbef00a97c9d
+
+# ready flag
+sudo devmem 0xA0010008 8 0x1
+
+sudo devmem 0xA0010008 8 0x0
+
+sudo devmem 0xa0008100 128
+sudo devmem 0xa0008110 128
+sudo devmem 0xa0008120 128
+sudo devmem 0xa0008130 128
+sudo devmem 0xa0008140 128
+sudo devmem 0xa0008150 128
+
+
+ZCU106AESIO:~$ sudo devmem 0xa0008100 128
+0x0A0A63BA11FF004039D5490000450008
+ZCU106AESIO:~$ sudo devmem 0xa0008110 128
+0x000030E83500E914E914FB0000E00101
+ZCU106AESIO:~$ sudo devmem 0xa0008120 128
+0x737070695F0500000000000002000000
+ZCU106AESIO:~$ sudo devmem 0xa0008130 128
+0x01000C00006C61636F6C057063745F04
+ZCU106AESIO:~$ sudo devmem 0xa0008140 128
+0x3EF5D9978301000C0012C07070695F04
+ZCU106AESIO:~$ sudo devmem 0xa0008150 128
+0xD9713A5EB3C82DE857A3BC492ECF88EE
+
+080045000049d5394000ff11ba630a0a01
+01e00000fb14e914e90035e83000000000
+0002000000000000055f69707073045f74
+6370056c6f63616c00000c0001045f6970
+70c012000c0001
